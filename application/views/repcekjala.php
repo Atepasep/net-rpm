@@ -1,4 +1,3 @@
-
 <!-- Page header -->
 <div class="page-header d-print-none m-2">
     <div class="container-xl">
@@ -14,7 +13,7 @@
             </div>
             <!-- Page title actions -->
             <div class="col-auto ms-auto d-print-none">
-            
+
             </div>
         </div>
     </div>
@@ -27,8 +26,26 @@
                 <div class="d-none d-sm-block">
                     <div class="d-flex">
                         <div class="ms-auto mb-1">
-                            <a href="<?= base_url().'cekjala' ?>" class="btn btn-sm btn-primary">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
+                            <a href="<?= base_url() . 'cekjala/export_pdf' ?>" class="btn btn-sm btn-danger" target="_blank">
+                                Export To
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-file-type-pdf">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                                    <path d="M5 12v-7a2 2 0 0 1 2 -2h7l5 5v4" />
+                                    <path d="M5 18h1.5a1.5 1.5 0 0 0 0 -3h-1.5v6" />
+                                    <path d="M17 18h2" />
+                                    <path d="M20 15h-3v6" />
+                                    <path d="M11 15v6h1a2 2 0 0 0 2 -2v-2a2 2 0 0 0 -2 -2h-1" />
+                                </svg>
+
+                            </a>
+                            <a href="<?= base_url() . 'cekjala' ?>" class="btn btn-sm btn-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-left">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M5 12l14 0" />
+                                    <path d="M5 12l6 6" />
+                                    <path d="M5 12l6 -6" />
+                                </svg>
                                 Kembali
                             </a>
                         </div>
@@ -49,10 +66,10 @@
                                     <label class="col-3 col-form-label font-kecil">No Mesin</label>
                                     <div class="col-sm-9 col">
                                         <select name="msncek" id="msncek" class="form-control form-select font-kecil">
-                                                <option value="">-- Pilih Mesin --</option>
-                                                <?php foreach($mesin->result_array() as $ms): $selek = $ms['mach_no']==$this->session->userdata('msnrepcek') ? 'selected' : ''; ?>
-                                                    <option value="<?= $ms['mach_no'] ?>" <?= $selek ?>><?= $ms['mach_no'].' # '.$ms['specifik'] ?></option>
-                                                <?php endforeach; ?>
+                                            <option value="">-- Pilih Mesin --</option>
+                                            <?php foreach ($mesin->result_array() as $ms) : $selek = $ms['mach_no'] == $this->session->userdata('msnrepcek') ? 'selected' : ''; ?>
+                                                <option value="<?= $ms['mach_no'] ?>" <?= $selek ?>><?= $ms['mach_no'] . ' # ' . $ms['specifik'] ?></option>
+                                            <?php endforeach; ?>
                                         </select>
                                     </div>
                                 </div>
@@ -64,7 +81,7 @@
                             </div>
                             <div class="col-4">
                                 <div class="d-flex">
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -88,31 +105,31 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white">
-                                <?php if($data->num_rows() > 0): ?>
-                                    <?php foreach($data->result_array() as $dt): ?>
+                                <?php if ($data->num_rows() > 0) : ?>
+                                    <?php foreach ($data->result_array() as $dt) : ?>
                                         <tr class="font-kecil">
                                             <td><?= tglmysql($dt['tgl']) ?></td>
                                             <td class="text-nowrap"><?= $dt['waktu'] ?></td>
                                             <td class="line-11"><span class="font-10 text-pink"><?= $dt['noinduk_cek'] ?></span><br><?= datauser($dt['noinduk_cek']) ?></td>
-                                            <td class="line-11"><span class="font-10 text-pink"><?= $dt['insno'] ?></span><br><?= viewsku($dt['po'],$dt['item'],$dt['dis']) ?></td>
+                                            <td class="line-11"><span class="font-10 text-pink"><?= $dt['insno'] ?></span><br><?= viewsku($dt['po'], $dt['item'], $dt['dis']) ?></td>
                                             <td></td>
-                                            <td class="text-center"><?= rupiah($dt['jalur1'],0) ?></td>
-                                            <td class="text-end"><?= rupiah($dt['ukur1'],1) ?></td>
-                                            <td class="text-center"><?= rupiah($dt['jalur2'],0) ?></td>
-                                            <td class="text-end"><?= rupiah($dt['ukur2'],1) ?></td>
-                                            <td class="text-center"><?= rupiah($dt['jalur3'],0) ?></td>
-                                            <td class="text-end"><?= rupiah($dt['ukur3'],1) ?></td>
-                                            <td class="text-center"><?= rupiah($dt['jalur4'],2) ?></td>
-                                            <td class="text-end"><?= rupiah($dt['ukur4'],1) ?></td>
-                                            <td class="text-center"><?= rupiah($dt['jalur5'],0) ?></td>
-                                            <td class="text-end"><?= rupiah($dt['ukur5'],1) ?></td>
-                                            <td class="text-end font-bold"><?= rupiah($dt['meai'],1) ?></td>
+                                            <td class="text-center"><?= rupiah($dt['jalur1'], 0) ?></td>
+                                            <td class="text-end"><?= rupiah($dt['ukur1'], 1) ?></td>
+                                            <td class="text-center"><?= rupiah($dt['jalur2'], 0) ?></td>
+                                            <td class="text-end"><?= rupiah($dt['ukur2'], 1) ?></td>
+                                            <td class="text-center"><?= rupiah($dt['jalur3'], 0) ?></td>
+                                            <td class="text-end"><?= rupiah($dt['ukur3'], 1) ?></td>
+                                            <td class="text-center"><?= rupiah($dt['jalur4'], 2) ?></td>
+                                            <td class="text-end"><?= rupiah($dt['ukur4'], 1) ?></td>
+                                            <td class="text-center"><?= rupiah($dt['jalur5'], 0) ?></td>
+                                            <td class="text-end"><?= rupiah($dt['ukur5'], 1) ?></td>
+                                            <td class="text-end font-bold"><?= rupiah($dt['meai'], 1) ?></td>
                                             <td class="text-center"></td>
-                                            <?php $lotcek = trim($dt['lotcek'])=='' ? '' : 'Lot-'.$dt['lotcek']; ?>
+                                            <?php $lotcek = trim($dt['lotcek']) == '' ? '' : 'Lot-' . $dt['lotcek']; ?>
                                             <td><?= $lotcek ?></td>
                                         </tr>
                                     <?php endforeach; ?>
-                                <?php else: ?>
+                                <?php else : ?>
                                     <tr>
                                         <td colspan="18" class="text-center">-- Data tidak Ditemukan --</td>
                                     </tr>
