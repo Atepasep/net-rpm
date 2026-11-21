@@ -657,7 +657,8 @@ class Rpm extends CI_Controller
 					if ($inp['id_waktu'] == $mlm['id']) {
 						$ada = 1;
 
-						$jmlshift += ($inp['rpm_akhir'] - $inp['rpm_awal']);
+						$selisih = $inp['rpm_akhir'] - $inp['rpm_awal'];
+						$jmlshift += max(0, $selisih);
 
 						$nomlot  = $inp['nomor_lot'] != 0 ? $inp['nomor_lot'] : '';
 						$nomlot2 = $inp['nomor_lot2'] != 0 ? ',' . $inp['nomor_lot2'] : '';
@@ -694,7 +695,8 @@ class Rpm extends CI_Controller
 							$pdf->SetTextColor(255, 255, 255);
 							$pdf->SetFont('Latob', '', 9);
 							$totalWidthSpan = $widths[3] + $widths[4] + $widths[5];
-							$pdf->Cell($totalWidthSpan, $sisaHeight, 'TOTAL : ' . rupiah($jmlshift, 0), 1, 0, 'R', true);
+							// $pdf->Cell($totalWidthSpan, $sisaHeight, 'TOTAL : ' . rupiah($jmlshift, 0), 1, 0, 'R', true);
+							$pdf->Cell($totalWidthSpan, $sisaHeight, 'TOTAL : ' . rupiah(max(0, $jmlshift), 0), 1, 0, 'R', true);
 
 							$pdf->SetTextColor(0, 0, 0);
 							$pdf->SetFont('Lato', '', 9);
@@ -743,7 +745,8 @@ class Rpm extends CI_Controller
 						$pdf->SetTextColor(255, 255, 255);
 						$pdf->SetFont('Latob', '', 12);
 						$totalWidthSpan = $widths[3] + $widths[4] + $widths[5];
-						$pdf->Cell($totalWidthSpan, 7, 'TOTAL : ' . rupiah($jmlshift, 0), 1, 0, 'R', true);
+						$pdf->Cell($totalWidthSpan, 7, 'TOTAL : ' . rupiah(max(0, $jmlshift), 0), 1, 0, 'R', true);
+						// $pdf->Cell($totalWidthSpan, 7, 'TOTAL : ' . rupiah($jmlshift, 0), 1, 0, 'R', true);
 
 						$pdf->SetTextColor(0, 0, 0);
 						$pdf->SetFont('Lato', '', 12);
