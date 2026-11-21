@@ -15,7 +15,7 @@ class Rpm extends CI_Controller
 		$this->load->model('usermodel');
 		$this->load->model('helpermodel');
 		$this->load->model('rpmmodel');
-		// $this->load->library('Pdf');
+		$this->load->library('Pdf');
 		include_once APPPATH . '/third_party/phpqrcode/qrlib.php';
 	}
 
